@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tanime - Ultimate Anime Streaming App | Watch 50,000+ Episodes Free</title>
+    <meta name="description" content="Stream anime without limits. No ads, HD quality, massive library, personalized recommendations. The #1 anime app.">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --purple: #8B5CF6;
+            --purple-dark: #7C3AED;
+            --purple-light: #A78BFA;
+            --purple-extra-light: #C4B5FD;
+            --pink: #EC4899;
+            --blue: #3B82F6;
+            --green: #10B981;
+            --dark: #0A0118;
+            --dark-card: #1A0F2E;
+            --white: #FFFFFF;
+            --gray: #94A3B8;
+            --gray-light: #CBD5E1;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--dark);
+            color: var(--white);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Epic Background - Enhanced */
+        .epic-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .bg-gradient {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: 
+                radial-gradient(circle at 20% 50%, var(--purple) 0%, transparent 50%),
+                radial-gradient(circle at 80% 30%, var(--pink) 0%, transparent 50%),
+                radial-gradient(circle at 50% 80%, var(--blue) 0%, transparent 50%);
+            opacity: 0.15;
+            filter: blur(100px);
+            animation: gradient-move 20s ease-in-out infinite;
+        }
+
+        @keyframes gradient-move {
+            0%, 100% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+        }
+
+        /* Add floating orbs */
+        .floating-orb {
+            position: fixed;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--purple-light) 0%, transparent 70%);
+            opacity: 0.3;
+            animation: float-orb 15s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .orb1 {
+            width: 300px;
+            height: 300px;
+            top: -150px;
+            right: -150px;
+            animation-delay: 0s;
+        }
+
+        .orb2 {
+            width: 200px;
+            height: 200px;
+            bottom: -100px;
+            left: -100px;
+            animation-delay: 5s;
+        }
+
+        .orb3 {
+            width: 150px;
+            height: 150px;
+            top: 50%;
+            left: 50%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(30px, -30px) scale(1.1); }
+            66% { transform: translate(-30px, 30px) scale(0.9); }
+        }
+
+        /* Sticky Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 1, 24, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 100;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            width: 90px;
+            height: 45px;
+            
+        }
+
+        .header-cta {
+            background: var(--purple);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 1rem 2rem;
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid var(--green);
+            color: var(--green);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-gradient {
+            background: linear-gradient(135deg, var(--purple-light) 0%, var(--purple) 50%, var(--pink) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: var(--gray-light);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .btn-hero {
+            padding: 1.25rem 2.5rem;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.125rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: white;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--purple-light);
+            border: 2px solid var(--purple);
+        }
+
+        /* Trust Indicators */
+        .trust-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .trust-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--purple-light);
+        }
+
+        .trust-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+
+        /* App Preview Carousel */
+        .app-preview {
+            padding: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .preview-container {
+            display: flex;
+            gap: 0.75rem;
+            padding: 0 1rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .preview-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .preview-slide {
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            width: 240px;
+        }
+
+        .phone-frame {
+            background: linear-gradient(135deg, #2D1B4E 0%, #1A0F2E 100%);
+            border-radius: 30px;
+            padding: 0.5rem;
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.5),
+                0 0 30px rgba(139, 92, 246, 0.3);
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .phone-frame::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            transform: rotate(45deg);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0%, 100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .phone-screen {
+            background: #000;
+            border-radius: 25px;
+            overflow: hidden;
+            aspect-ratio: 9/19;
+            position: relative;
+        }
+
+        .phone-screen img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .screen-label {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* Feature Cards Grid */
+        .features-section {
+            padding: 4rem 1rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+        }
+
+        .section-desc {
+            font-size: 1.125rem;
+            color: var(--gray-light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background: var(--dark-card);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 1.5rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .feature-card:active::before {
+            opacity: 1;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-desc {
+            font-size: 0.875rem;
+            color: var(--gray);
+            line-height: 1.4;
+        }
+
+        /* Detailed Features */
+        .detailed-features {
+            padding: 0 1rem 4rem;
+        }
+
+        .detailed-feature {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 25px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .detailed-feature::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--purple), var(--pink), var(--purple));
+            border-radius: 25px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s;
+        }
+
+        .detailed-feature:active::after {
+            opacity: 0.1;
+        }
+
+        .detailed-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .detailed-icon {
+            font-size: 2rem;
+            background: var(--purple);
+            width: 60px;
+            height: 60px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .detailed-content h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detailed-content p {
+            color: var(--gray-light);
+            line-height: 1.5;
+        }
+
+        /* Categories Showcase */
+        .categories {
+            padding: 4rem 1rem;
+            background: var(--dark-card);
+        }
+
+        .category-pills {
+            display: flex;
+            gap: 0.75rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scrollbar-width: none;
+        }
+
+        .category-pills::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-pill {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--purple);
+            color: var(--purple-light);
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            white-space: nowrap;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .category-pill:active {
+            background: var(--purple);
+            color: white;
+            transform: scale(0.95);
+        }
+
+        /* How It Works */
+        .how-it-works {
+            padding: 4rem 1rem;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: var(--purple);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-content p {
+            color: var(--gray-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 4rem 1rem;
+            background: var(--dark-card);
+        }
+
+        .testimonial-slider {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding: 1rem 0;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .testimonial-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonial {
+            flex: 0 0 90%;
+            background: rgba(139, 92, 246, 0.05);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            padding: 2rem;
+            scroll-snap-align: center;
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            background: var(--purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .user-info h5 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-rating {
+            color: #FBBF24;
+            font-size: 0.875rem;
+        }
+
+        .testimonial-text {
+            color: var(--gray-light);
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 4rem 1rem;
+        }
+
+        .faq-item {
+            background: var(--dark-card);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Final CTA */
+        .final-cta {
+            padding: 4rem 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(236, 72, 153, 0.1) 100%);
+            border-radius: 30px;
+            margin: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .cta-subtitle {
+            font-size: 1.125rem;
+            color: var(--gray-light);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .download-mega {
+            background: linear-gradient(135deg, var(--purple) 0%, var(--purple-dark) 100%);
+            color: white;
+            padding: 1.5rem 3rem;
+            border-radius: 35px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.25rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.5);
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 1rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .footer-logo {
+            width: 120px;
+            height: 60px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--purple);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .social-icon:active {
+            background: var(--purple);
+            transform: scale(0.9);
+        }
+
+        .copyright {
+            color: var(--gray);
+            font-size: 0.875rem;
+        }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 2rem;
+            right: 1rem;
+            background: var(--purple);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5);
+            text-decoration: none;
+            z-index: 99;
+            animation: fab-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes fab-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Loading Screen - REMOVED */
+
+        /* Animations */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.6s forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up:nth-child(1) { animation-delay: 0.1s; }
+        .fade-up:nth-child(2) { animation-delay: 0.2s; }
+        .fade-up:nth-child(3) { animation-delay: 0.3s; }
+        .fade-up:nth-child(4) { animation-delay: 0.4s; }
+        .fade-up:nth-child(5) { animation-delay: 0.5s; }
+        .fade-up:nth-child(6) { animation-delay: 0.6s; }
+
+        /* Responsive adjustments */
+        @media (min-width: 768px) {
+            .hero h1 { font-size: 4rem; }
+            .features-grid { grid-template-columns: repeat(3, 1fr); }
+            .preview-slide { width: 280px; }
+            .preview-container { justify-content: center; gap: 1rem; }
+            .hero-buttons { flex-direction: row; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Background Effects -->
+    <div class="epic-bg">
+        <div class="bg-gradient"></div>
+        <div class="floating-orb orb1"></div>
+        <div class="floating-orb orb2"></div>
+        <div class="floating-orb orb3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <img src="logo.png" alt="Tanime" class="logo-img">
+            </div>
+            <a href="#download" class="header-cta">
+                <span>📱</span> Get App
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-badge fade-up">
+            <span>🎉</span> #1 Anime App on Android
+        </div>
+        
+        <h1 class="fade-up">
+            Stream Anime<br>
+            <span class="hero-gradient">Without Limits</span>
+        </h1>
+        
+        <p class="hero-subtitle fade-up">
+            50,000+ episodes. Zero ads. Lightning fast.<br>
+            The ultimate anime experience.
+        </p>
+        
+        <div class="hero-buttons fade-up">
+            <a href="#download" class="btn-hero btn-primary">
+                <span>📥</span> Download Free
+            </a>
+            <a href="#preview" class="btn-hero btn-secondary">
+                <span>👁️</span> See Demo
+            </a>
+        </div>
+        
+        <div class="trust-indicators fade-up">
+            <div class="trust-item">
+                <span class="trust-number">5M+</span>
+                <span class="trust-label">Active Users</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">4.9★</span>
+                <span class="trust-label">App Rating</span>
+            </div>
+            <div class="trust-item">
+                <span class="trust-number">50K+</span>
+                <span class="trust-label">Episodes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Preview -->
+    <section class="app-preview" id="preview">
+        <div class="preview-container">
+            <div class="preview-slide">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <img src="519-portrait.png" alt="Home Screen">
+                        <span class="screen-label">Discover New Anime</span>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-slide">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <img src="522-portrait.png" alt="Library">
+                        <span class="screen-label">Your Library</span>
+                    </div>
+                </div>
+            </div>
+            <div class="preview-slide">
+                <div class="phone-frame">
+                    <div class="phone-screen">
+                        <img src="528-portrait.png" alt="Player">
+                        <span class="screen-label">HD Streaming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section class="features-section">
+        <div class="section-header">
+            <h2 class="section-title fade-up">Why <span class="hero-gradient">Tanime</span>?</h2>
+            <p class="section-desc fade-up">Everything you need for the perfect anime experience</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card fade-up">
+                <div class="feature-icon">🚫</div>
+                <h3 class="feature-title">No Ads Ever</h3>
+                <p class="feature-desc">100% ad-free experience</p>
+            </div>
+            <div class="feature-card fade-up">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Instant Play</h3>
+                <p class="feature-desc">Zero buffering, instant load</p>
+            </div>
+            <div class="feature-card fade-up">
+                <div class="feature-icon">🎬</div>
+                <h3 class="feature-title">HD Quality</h3>
+                <p class="feature-desc">1080p crystal clear</p>
+            </div>
+            <div class="feature-card fade-up">
+                <div class="feature-icon">📱</div>
+                <h3 class="feature-title">Mobile First</h3>
+                <p class="feature-desc">Designed for phones</p>
+            </div>
+            <div class="feature-card fade-up">
+                <div class="feature-icon">🌍</div>
+                <h3 class="feature-title">Multi-Language</h3>
+                <p class="feature-desc">Subs in 15+ languages</p>
+            </div>
+            <div class="feature-card fade-up">
+                <div class="feature-icon">🔄</div>
+                <h3 class="feature-title">Auto-Sync</h3>
+                <p class="feature-desc">Continue anywhere</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Features -->
+    <section class="detailed-features">
+        <div class="detailed-feature fade-up">
+            <div class="detailed-header">
+                <div class="detailed-icon">🎯</div>
+                <div class="detailed-content">
+                    <h3>Smart Recommendations</h3>
+                    <p>Our AI learns your taste and suggests anime you'll love. Never run out of shows to watch!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-feature fade-up">
+            <div class="detailed-header">
+                <div class="detailed-icon">📊</div>
+                <div class="detailed-content">
+                    <h3>Track Your Progress</h3>
+                    <p>Automatically tracks episodes, creates watchlists, and syncs across all devices.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-feature fade-up">
+            <div class="detailed-header">
+                <div class="detailed-icon">🌙</div>
+                <div class="detailed-content">
+                    <h3>Night Mode</h3>
+                    <p>Easy on the eyes with OLED black theme. Perfect for late night binge watching.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="categories">
+        <div class="section-header">
+            <h2 class="section-title">Browse by Genre</h2>
+        </div>
+        <div class="category-pills">
+            <span class="category-pill">Action</span>
+            <span class="category-pill">Romance</span>
+            <span class="category-pill">Comedy</span>
+            <span class="category-pill">Horror</span>
+            <span class="category-pill">Sci-Fi</span>
+            <span class="category-pill">Fantasy</span>
+            <span class="category-pill">Slice of Life</span>
+            <span class="category-pill">Sports</span>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="section-header">
+            <h2 class="section-title">How It Works</h2>
+        </div>
+        <div class="steps">
+            <div class="step fade-up">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>Download the App</h4>
+                    <p>Get Tanime from our website. Install in seconds.</p>
+                </div>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>Browse & Discover</h4>
+                    <p>Explore 10,000+ anime series and movies.</p>
+                </div>
+            </div>
+            <div class="step fade-up">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>Stream Instantly</h4>
+                    <p>Tap and watch. No ads, no waiting, just anime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-header">
+            <h2 class="section-title">What Fans Say</h2>
+        </div>
+        <div class="testimonial-slider">
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <h5>Alex Chen</h5>
+                        <div class="user-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">"Best anime app ever! No ads is a game changer. The quality is amazing and it never buffers."</p>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <h5>Maria Garcia</h5>
+                        <div class="user-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">"Finally an app that works! Great selection, super fast, and the recommendations are spot on."</p>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-header">
+                    <div class="user-avatar">👤</div>
+                    <div class="user-info">
+                        <h5>James Kim</h5>
+                        <div class="user-rating">⭐⭐⭐⭐⭐</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">"I've tried every anime app. Tanime is by far the best. It's fast, clean, and just works."</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <div class="section-header">
+            <h2 class="section-title">Questions?</h2>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is Tanime really free?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Yes! Tanime is 100% free. No subscriptions, no hidden fees, no premium tiers. Just free anime streaming.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>How do you have no ads?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>We believe in providing the best experience possible. Our unique model allows us to operate without ads.</p>
+            </div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What devices are supported?</span>
+                <span class="faq-icon">+</span>
+            </div>
+            <div class="faq-answer">
+                <p>Tanime is available for all Android devices running Android 5.0 and above. iOS coming soon!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="download">
+        <h2 class="cta-title hero-gradient">Ready to Start?</h2>
+        <p class="cta-subtitle">Join 5 million anime fans streaming on Tanime</p>
+        <a href="#" class="download-mega" onclick="downloadApp()">
+            <span>📥</span> Download Tanime Free
+        </a>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <img src="logo.png" alt="Tanime" class="footer-logo">
+        <div class="footer-links">
+            <a href="#" class="footer-link">About</a>
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Privacy</a>
+            <a href="#" class="footer-link">Terms</a>
+        </div>
+        <div class="social-links">
+            <a href="#" class="social-icon">📧</a>
+            <a href="#" class="social-icon">💬</a>
+            <a href="#" class="social-icon">🐦</a>
+            <a href="#" class="social-icon">📷</a>
+        </div>
+        <p class="copyright">© 2024 Tanime.tv - Made with 💜 for anime lovers</p>
+    </footer>
+
+    <!-- Floating Action Button -->
+    <a href="#download" class="fab">📥</a>
+
+    <script>
+        // Smooth entry animations on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Download function
+        function downloadApp() {
+            // Add your APK download link here
+            alert('Download starting...');
+            // window.location.href = 'https://tanime.tv/download/tanime.apk';
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
