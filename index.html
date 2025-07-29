@@ -109,6 +109,7 @@
             /* Brand colors */
             --brand: hsl(265, 70%, 55%);
             --brand-light: hsl(265, 60%, 65%);
+            --brand-lighter: hsl(265, 50%, 75%);
             --brand-dark: hsl(216, 28%, 15%);
             
             /* Supabase-inspired colors */
@@ -586,13 +587,23 @@
         
         .hero-text {
             text-align: center;
-            order: 2;
+            order: 1;
         }
         
         @media (min-width: 768px) {
             .hero-text {
                 text-align: left;
                 order: 1;
+            }
+        }
+        
+        .hero-visual {
+            order: 2;
+        }
+        
+        @media (min-width: 768px) {
+            .hero-visual {
+                order: 2;
             }
         }
         
@@ -627,17 +638,61 @@
             margin-bottom: var(--space-6);
         }
         
+        /* Enhanced purple gradient animation - faster and more eye-catching */
         .hero-gradient-animated {
-            background: linear-gradient(to right, var(--text) 20%, var(--brand) 40%, var(--brand-light) 60%, var(--text) 80%);
-            background-size: 200% auto;
+            background: linear-gradient(
+                90deg,
+                var(--text) 0%,
+                var(--brand-dark) 10%,
+                var(--brand) 35%,
+                var(--brand-light) 50%,
+                var(--brand-lighter) 65%,
+                var(--brand) 85%,
+                var(--text) 100%
+            );
+            background-size: 200% 100%;
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: gradient 3s ease infinite;
+            animation: gradient-wave 1.5s ease-in-out infinite;
+            filter: brightness(1.3) contrast(1.1);
+            position: relative;
         }
         
-        @keyframes gradient {
-            to { background-position: 200% center; }
+        @keyframes gradient-wave {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        /* Add a subtle glow effect */
+        .hero-gradient-animated::after {
+            content: '';
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            right: -10%;
+            bottom: -20%;
+            background: radial-gradient(circle at center, var(--brand) 0%, transparent 60%);
+            opacity: 0.3;
+            filter: blur(30px);
+            z-index: -1;
+            animation: glow-pulse 1.5s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes glow-pulse {
+            0%, 100% { 
+                opacity: 0.2;
+                transform: scale(0.95);
+            }
+            50% { 
+                opacity: 0.4;
+                transform: scale(1.05);
+            }
         }
         
         .hero-desc {
@@ -713,17 +768,10 @@
 
         /* App Preview - Supabase style */
         .hero-visual {
-            order: 1;
             display: flex;
             justify-content: center;
             align-items: center;
             position: relative;
-        }
-        
-        @media (min-width: 768px) {
-            .hero-visual {
-                order: 2;
-            }
         }
         
         .phone-wrapper {
